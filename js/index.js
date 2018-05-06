@@ -361,6 +361,7 @@ $(document).ready(function() {
 					$($signin_2fa.children(".random-text")[0]).text(text);
 
 					minAudioLength = 10;
+					targetAudioLength = 13;
 					// noOfAttempts = 1;
 
 				}, submitPhase2 - 70);
@@ -513,7 +514,7 @@ $(document).ready(function() {
 
 					$($signup_2fa.children(".random-text")[0]).text(text);
 
-					minAudioLength = 25;
+					minAudioLength = 30;
 					noOfAttempts = 1;
 				}, submitPhase2 - 70);
 				setTimeout(function() {
