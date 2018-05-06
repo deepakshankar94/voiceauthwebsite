@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="siri-container" style="width: 250px; height:50px"></div>
+	</body>
+	<script src="js/siriwave.js"></script>
+	<script>
+	var siriWave = new SiriWave({
+		container: document.getElementById('siri-container'),
+		// width: 250,
+		// height: 100,
+		speed: 0.2,
+		// color: '#000',
+		frequency: 100,
+		style: 'ios9',
+		cover: true
+	});
+	siriWave.start();
+	</script>
+</html>
