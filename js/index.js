@@ -84,7 +84,6 @@ $(document).ready(function() {
 	recording = false,
 	timer = new Timer(),
 	minAudioLength = -1,
-	targetAudioLength = 0,
 	downloadableAudio = false,
 	noOfAttempts = -1,
 	attemptNumber = 0,
@@ -177,7 +176,7 @@ $(document).ready(function() {
 		recording = true;
 		console.log("Starting to record");
 		siriWave.start();
-		timer.start({ target: { seconds: targetAudioLength }});
+		timer.start();
 		$(currentPanel.children('.submit')[0]).hide();
 		$(".record").addClass("processing");
 		$(".record").text("Stop");
@@ -202,23 +201,6 @@ $(document).ready(function() {
 	timer.addEventListener('reset', function (e) {
 		$('.timer').html("");
 	});
-	timer.addEventListener('targetAchieved', function(e) {
-		recording = false;
-		console.log("Final length is " + timer.getTimeValues());
-
-		$(".record").removeClass("processing");
-		$(".record").text("Record Again?");
-
-		stopRecording();
-		clearInterval(siriwave_update_callback);
-		microphone.stop();
-		siriWave.stop();
-		timer.stop();
-
-		var canvas = $("#siri-container").find('canvas')[0];
-		const context = canvas.getContext('2d');
-		context.clearRect(0, 0, canvas.width, canvas.height);
-	});
 
 	// Validation 	/////////////////////////////////////////////////////////////////
 	$('.login__form .login__input').each(function(){
@@ -230,11 +212,6 @@ $(document).ready(function() {
 	function validate (input) {
 		if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
 			if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
-				return false;
-			}
-		}
-		else if ($(input).attr('name') == 'username') {
-			if ($(input).val().length < 0 || $(input).val().trim().match(/^[a-zA-Z0-9]/) == null) {
 				return false;
 			}
 		}
@@ -361,7 +338,6 @@ $(document).ready(function() {
 					$($signin_2fa.children(".random-text")[0]).text(text);
 
 					minAudioLength = 10;
-					targetAudioLength = 13;
 					// noOfAttempts = 1;
 
 				}, submitPhase2 - 70);
@@ -514,7 +490,7 @@ $(document).ready(function() {
 
 					$($signup_2fa.children(".random-text")[0]).text(text);
 
-					minAudioLength = 30;
+					minAudioLength = 25;
 					noOfAttempts = 1;
 				}, submitPhase2 - 70);
 				setTimeout(function() {
